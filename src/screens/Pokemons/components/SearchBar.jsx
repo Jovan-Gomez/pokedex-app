@@ -17,7 +17,7 @@ const SearchBar = ({ types, handleName, name, handleType, type }) => {
       </div>
       <div className='py-2 px-4 border-2 border-red-600 rounded-full shadow-md'>
         <select value={type} onChange={handleType} className='text-gray-500 outline-none text-l'>
-          <option value='any'>--Type--</option>
+          <option value=''>--Type--</option>
           {types.map((type) => (
             <option key={type.url}>{type.name}</option>
           ))}
