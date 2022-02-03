@@ -12,31 +12,24 @@ import PokemonCard from './components/PokemonCard'
 import SearchBar from './components/SearchBar'
 
 const Pokemons = () => {
-  const [allPokemons, setAllPokemons] = useState([])
-  const [pokemons, setPokemons] = useState([])
+  const [allPokemons, setAllPokemons] = useState({})
+  const [pokemons, setPokemons] = useState(JSON.parse(localStorage.getItem('pokemons')) ?? {})
   const [types, setTypes] = useState([])
   const [name, setName] = useState('')
-  const [type, setType] = useState('any')
+  const [type, setType] = useState('')
 
   useEffect(() => {
     const getDataFromApi = async () => {
-      const [apiPokemons, apiTypes] = await Promise.all([getPokemons(), getAllTypes()])
-      setTypes(apiTypes)
-      if (localStorage.getItem('pokemons')) {
-        setPokemons(JSON.parse(localStorage.getItem('pokemons')))
-        return
-      }
+      const [apiPokemons, apiAllPokemons, apiTypes] = await Promise.all([
+        getPokemons(),
+        getAllPokemons(),
+        getAllTypes(),
+      ])
       setPokemons(apiPokemons)
+      setAllPokemons(apiAllPokemons)
+      setTypes(apiTypes)
     }
     getDataFromApi()
-  }, [])
-
-  useEffect(() => {
-    if (localStorage.getItem('all')) {
-      setAllPokemons(JSON.parse(localStorage.getItem('all')))
-      return
-    }
-    getAllPokemons().then((apiAllPokemons) => setAllPokemons(apiAllPokemons))
   }, [])
 
   useEffect(() => {

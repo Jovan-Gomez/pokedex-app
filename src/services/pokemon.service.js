@@ -14,7 +14,7 @@ export const getAllPokemons = async () => {
     const baseUrl = `https://pokeapi.co/api/v2/pokemon?limit=1118`
     const response = await fetch(baseUrl)
     const pokemons = await response.json()
-    localStorage.setItem('all', JSON.stringify(pokemons))
+
     return pokemons
   } catch (error) {
     console.error(error)

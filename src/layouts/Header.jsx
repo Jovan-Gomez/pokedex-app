@@ -12,6 +12,8 @@ const Header = () => {
       type: types.logout,
     })
     navigate('/', { replace: true })
+    localStorage.removeItem('all')
+    localStorage.removeItem('pokemons')
   }
   return (
     <header>
